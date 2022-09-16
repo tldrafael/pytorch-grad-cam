@@ -2,3 +2,7 @@ build
 dist
 *.egg-info
 **/*.pyc
+tags
+*/tags
+.ipynb_checkpoints/
+*.swp

@@ -72,6 +72,7 @@ class BaseCAM:
                                                    requires_grad=True)
 
         outputs = self.activations_and_grads(input_tensor)
+        import pdb; pdb.set_trace()
         if targets is None:
             target_categories = np.argmax(outputs.cpu().data.numpy(), axis=-1)
             targets = [ClassifierOutputTarget(
@@ -140,7 +141,9 @@ class BaseCAM:
             self,
             cam_per_target_layer: np.ndarray) -> np.ndarray:
         cam_per_target_layer = np.concatenate(cam_per_target_layer, axis=1)
+        # Apply ReLU
         cam_per_target_layer = np.maximum(cam_per_target_layer, 0)
+        # Average layers' results
         result = np.mean(cam_per_target_layer, axis=1)
         return scale_cam_image(result)
 
